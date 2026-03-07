@@ -1,102 +1,156 @@
-import React from 'react';
-
-const Template1 = ({ data }) => {
-  const { personalInfo, summary, skills, education, experience } = data;
-
-  return (
-    <div className="font-sans">
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
-        <div className="flex items-center gap-4">
-          {personalInfo.photo && (
-            <img src={personalInfo.photo} alt="profile" className="w-20 h-20 rounded-full border-4 border-white" />
-          )}
-          <div>
-            <h1 className="text-3xl font-bold">{personalInfo.fullName || 'Your Name'}</h1>
-            <p className="text-blue-100">{personalInfo.email}</p>
-            <p className="text-blue-100">{personalInfo.phone}</p>
-            {personalInfo.linkedin && (
-              <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-white underline text-sm">
-                LinkedIn Profile
-              </a>
-            )}
-          </div>
+// Template 1: Executive Pro - COMPLETE & ENHANCED
+const Template1 = () => (
+  <div className="font-sans bg-white max-w-4xl mx-auto shadow-2xl">
+    {/* Header */}
+    <div className="bg-gradient-to-r from-slate-900 to-slate-700 text-white p-8">
+      <div className="flex items-center gap-6">
+        <div className="w-20 h-20 bg-amber-500 rounded-full flex items-center justify-center text-3xl font-bold text-slate-900">
+          {formData.fullName ? formData.fullName.charAt(0).toUpperCase() : 'JD'}
         </div>
-      </div>
-      
-      <div className="p-6">
-        {summary && (
-          <div className="mb-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-2 border-b-2 border-purple-200 pb-1">Summary</h2>
-            <p className="text-gray-600">{summary}</p>
+        <div className="flex-1">
+          <h1 className="text-4xl font-bold mb-2">{formData.fullName || 'John Doe'}</h1>
+          <div className="flex flex-wrap gap-4 text-sm text-amber-200">
+            <span>✉️ {formData.email || 'john.doe@email.com'}</span>
+            {formData.phone && <span>📞 {formData.phone}</span>}
           </div>
-        )}
-        
-        <div className="grid grid-cols-3 gap-6">
-          <div className="col-span-1">
-            {skills?.technical?.length > 0 && (
-              <div className="mb-4">
-                <h2 className="text-lg font-bold text-gray-800 mb-2">Technical Skills</h2>
-                <div className="space-y-2">
-                  {skills.technical.map((skill, i) => (
-                    <div key={i}>
-                      <div className="flex justify-between text-sm">
-                        <span>{skill.name}</span>
-                        <span className="text-purple-600">{skill.level}</span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-1.5">
-                        <div className="bg-purple-600 rounded-full h-1.5" style={{ width: '80%' }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {skills?.soft?.length > 0 && (
-              <div>
-                <h2 className="text-lg font-bold text-gray-800 mb-2">Soft Skills</h2>
-                <div className="flex flex-wrap gap-2">
-                  {skills.soft.map((skill, i) => (
-                    <span key={i} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
-                      {skill.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-          
-          <div className="col-span-2">
-            {experience?.length > 0 && (
-              <div className="mb-6">
-                <h2 className="text-xl font-bold text-gray-800 mb-3">Experience</h2>
-                {experience.map((exp, i) => (
-                  <div key={i} className="mb-4">
-                    <h3 className="font-bold">{exp.position} at {exp.company}</h3>
-                    <p className="text-sm text-gray-500">{exp.duration}</p>
-                    <p className="text-gray-600 mt-1">{exp.description}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-            
-            {education?.length > 0 && (
-              <div>
-                <h2 className="text-xl font-bold text-gray-800 mb-3">Education</h2>
-                {education.map((edu, i) => (
-                  <div key={i} className="mb-3">
-                    <h3 className="font-bold">{edu.degree}</h3>
-                    <p className="text-gray-600">{edu.institute}</p>
-                    <p className="text-sm text-gray-500">{edu.year} | {edu.grade}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          {formData.linkedin && (
+            <p className="text-sm mt-2 text-amber-300">🔗 {formData.linkedin}</p>
+          )}
         </div>
       </div>
     </div>
-  );
-};
 
-export default Template1;
+    {/* Content */}
+    <div className="p-8">
+      {/* Summary */}
+      {formData.summary && (
+        <div className="mb-8">
+          <h2 className="text-lg font-bold text-slate-900 border-b-2 border-amber-500 pb-2 mb-4">Professional Summary</h2>
+          <p className="text-gray-700 leading-relaxed">{formData.summary}</p>
+        </div>
+      )}
+
+      {/* Main Grid */}
+      <div className="grid grid-cols-3 gap-8">
+        {/* Left Column */}
+        <div className="col-span-1 space-y-6">
+          {/* Technical Skills */}
+          {formData.skills.technical.length > 0 && (
+            <div>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Technical Skills</h2>
+              <div className="space-y-3">
+                {formData.skills.technical.map((skill, i) => (
+                  <div key={i}>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="font-medium text-gray-700">{skill}</span>
+                      <span className="text-amber-600">★★★★☆</span>
+                    </div>
+                    <div className="w-full bg-gray-200 h-2 rounded-full">
+                      <div className="bg-amber-500 h-2 rounded-full" style={{ width: '85%' }}></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Soft Skills */}
+          {formData.skills.soft.length > 0 && (
+            <div>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Soft Skills</h2>
+              <div className="flex flex-wrap gap-2">
+                {formData.skills.soft.map((skill, i) => (
+                  <span key={i} className="px-4 py-2 bg-amber-100 text-amber-800 rounded-lg text-sm font-medium shadow-sm">
+                    ✦ {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Languages */}
+          {formData.languages.length > 0 && (
+            <div>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Languages</h2>
+              <div className="space-y-2">
+                {formData.languages.map((lang, i) => (
+                  <div key={i} className="flex justify-between items-center">
+                    <span className="text-gray-700">{lang.language}</span>
+                    <span className="text-sm px-3 py-1 bg-blue-100 text-blue-800 rounded-full">
+                      {lang.proficiency}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Right Column */}
+        <div className="col-span-2 space-y-6">
+          {/* Experience */}
+          {formData.experience.length > 0 && (
+            <div>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Work Experience</h2>
+              <div className="space-y-4">
+                {formData.experience.map((exp, i) => (
+                  <div key={i} className="border-l-4 border-amber-500 pl-4">
+                    <h3 className="font-bold text-gray-800">{exp.position}</h3>
+                    <p className="text-amber-600 text-sm font-medium">{exp.company} • {exp.duration}</p>
+                    <p className="text-sm text-gray-600 mt-2 leading-relaxed">{exp.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Education */}
+          {formData.education.length > 0 && (
+            <div>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Education</h2>
+              <div className="grid grid-cols-2 gap-4">
+                {formData.education.map((edu, i) => (
+                  <div key={i} className="bg-gray-50 p-4 rounded-lg">
+                    <p className="font-bold text-gray-800">{edu.degree}</p>
+                    <p className="text-sm text-gray-600">{edu.institute}</p>
+                    <p className="text-xs text-gray-500 mt-1">{edu.year} • Grade: {edu.grade || 'N/A'}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Projects */}
+          {formData.projects.length > 0 && (
+            <div>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Projects</h2>
+              <div className="space-y-3">
+                {formData.projects.map((proj, i) => (
+                  <div key={i} className="bg-gray-50 p-4 rounded-lg">
+                    <h3 className="font-bold text-gray-800">{proj.title}</h3>
+                    <p className="text-sm text-amber-600 mb-2">{proj.tech}</p>
+                    <p className="text-sm text-gray-600">{proj.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Certifications */}
+          {formData.certifications.length > 0 && (
+            <div>
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Certifications</h2>
+              <div className="flex flex-wrap gap-2">
+                {formData.certifications.map((cert, i) => (
+                  <span key={i} className="px-4 py-2 bg-yellow-100 text-yellow-800 rounded-lg text-sm font-medium">
+                    🏅 {cert}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+);
